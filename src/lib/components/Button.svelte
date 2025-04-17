@@ -1,7 +1,4 @@
 <script lang="ts">
-	import ButtonIcon from '$components/ButtonIcon/ButtonIcon.svelte';
-	import Text from '$components/Text/Text.svelte';
-
 	type Props = {
 		disabled?: boolean;
 		variant?: 'primary' | 'secondary' | 'persuasive';
@@ -10,10 +7,6 @@
 		alignSelf?: 'start' | 'center' | 'end';
 		stretch?: boolean;
 		maxWidth?: boolean;
-		icon?: {
-			position: 'left' | 'right';
-			url: string;
-		};
 	};
 
 	type LinkProps = Props & {
@@ -29,16 +22,7 @@
 	};
 
 	const props: LinkProps | ButtonProps = $props();
-	const {
-		disabled,
-		variant = 'primary',
-		className,
-		alignSelf,
-		stretch,
-		maxWidth,
-		label,
-		icon
-	} = props;
+	const { disabled, variant = 'primary', className, alignSelf, stretch, maxWidth, label } = props;
 	const classes = [
 		'button',
 		variant,
@@ -58,15 +42,7 @@
 		rel={props.isExternal ? 'noopener noreferrer' : undefined}
 		onclick={props.onClick}
 	>
-		{#if icon && icon.position === 'left'}
-			<ButtonIcon url={icon.url} position={icon.position} />
-		{/if}
-		<Text variant="span" styling="body-lg-medium">
-			{label}
-		</Text>
-		{#if icon && icon.position === 'right'}
-			<ButtonIcon url={icon.url} position={icon.position} />
-		{/if}
+		{label}
 	</a>
 {:else if props.as === 'button'}
 	<button
@@ -75,14 +51,6 @@
 		aria-disabled={disabled}
 		type={props.type ?? 'button'}
 	>
-		{#if icon && icon.position === 'left'}
-			<ButtonIcon url={icon.url} position={icon.position} />
-		{/if}
-		<Text variant="span" styling="body-lg-medium">
-			{label}
-		</Text>
-		{#if icon && icon.position === 'right'}
-			<ButtonIcon url={icon.url} position={icon.position} />
-		{/if}
+		{label}
 	</button>
 {/if}
